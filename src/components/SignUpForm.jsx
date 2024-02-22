@@ -1,17 +1,28 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-function SignUpForm({setToken}) {
+function SignUpForm({ setToken }) {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
-    try { 
-        const result = await axios.post('https://fsa-jwt-practice.herokuapp.com/signup')
-        setToken(result.token)
-        console.log(result)
+    try {
+      const result = await fetch(
+        'https://fsa-jwt-practice.herokuapp.com/signup',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }
+      );
+const response = await result.json()
+      setToken(response.token);
+      console.log(response);
     } catch (error) {
       setError(error.message);
     }
