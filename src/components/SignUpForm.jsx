@@ -20,6 +20,8 @@ function SignUpForm({ setToken }) {
           }),
         }
       );
+
+      // const {data} = await axios.post('url')
 const response = await result.json()
       setToken(response.token);
       console.log(response);
